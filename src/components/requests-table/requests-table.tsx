@@ -8,7 +8,6 @@ const RequestsTable: React.FC = () => {
     fetch(`http://localhost:3006/requests`, {cache: "reload"})
         .then(res => res.json())
         .then(result => {
-          console.log(result)
           dispatch({
             type: `SET_REQUESTS`,
             payload: result

@@ -3,7 +3,7 @@ import React, {useReducer, createContext, ReactNode, Dispatch} from 'react';
 export interface IRequest {
   requestNumber: number,
   id: string,
-  applyTime: number,
+  applyTime: string,
   clientFirm: string,
   transporter: string,
   transporterPhone: string,

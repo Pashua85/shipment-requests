@@ -1,0 +1,1 @@
+export const MAIN_FONT_COLOR = `#1F1E25`;
