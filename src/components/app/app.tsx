@@ -1,20 +1,15 @@
-import React, {useState, useEffect} from 'react';
-import {IRequest} from '../../types';
+import React from 'react';
+import RequestsTable from '../requests-table/requests-table';
+import {RequestsContextProvider} from '../../context/requestsContext';
+
 
 const App: React.FC = () => {
-  const [requests, setRequests] = useState<IRequest[]>([]);
-
-  useEffect(() => {
-    fetch(`http://localhost:1234/requests`)
-        .then(res => res.json())
-        .then(result => {
-          setRequests(result);
-        })
-  }, [])
 
   return (
-    <h1>Заявки</h1>
-  )
+    <RequestsContextProvider>
+      <RequestsTable />
+    </RequestsContextProvider>
+  );
 }
 
 export default App;
