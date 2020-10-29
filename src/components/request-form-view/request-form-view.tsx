@@ -2,12 +2,11 @@ import React, {SyntheticEvent, ChangeEvent} from 'react';
 import {Form, InputWrapper, ButtonRow, SubmitButton, CancelButton, TextArea} from './style';
 import InputGroup from '../input-group/input-group';
 
-
 interface RequestFormViewProps {
   clientFirm: string,
   transporter: string,
   transporterPhone: string,
-  dateTimeString: string,
+  applyTime: string,
   formName: `update` | `create`,
   comments: string,
   codeATI: string,
@@ -19,20 +18,21 @@ interface RequestFormViewProps {
   onCommentsChange: (e: ChangeEvent<HTMLTextAreaElement>) => void,
   onCodeATIChange: (e: ChangeEvent<HTMLInputElement>) => void,
   phoneError: string,
-  codeATIError: string
+  codeATIError: string,
+  clientFirmError: string,
+  transporterError: string
 }
 
 const RequestFormView: React.FC<RequestFormViewProps> = ({
-  onFormSubmit, clientFirm, onClientFirmChange, transporter, onTransporterChange, phoneError, transporterPhone, onPhoneChange, dateTimeString, onDateTimeChange,
-  formName, comments, onCommentsChange, codeATI, onCodeATIChange, codeATIError
+  onFormSubmit, clientFirm, onClientFirmChange, transporter, onTransporterChange, phoneError, transporterPhone, onPhoneChange, applyTime, onDateTimeChange,
+  formName, comments, onCommentsChange, codeATI, onCodeATIChange, codeATIError, clientFirmError, transporterError
 }) => {
-  console.log(dateTimeString);
   return (
     <Form onSubmit={onFormSubmit} autoComplete="off">
       <InputWrapper>
         <InputGroup 
           type="datetime-local"
-          value={dateTimeString}
+          value={applyTime}
           label="Дата и время получения заявки"
           onChange={onDateTimeChange}
           disabled={formName === `create`}
@@ -44,6 +44,7 @@ const RequestFormView: React.FC<RequestFormViewProps> = ({
           value={clientFirm}
           label="Название фирмы клиента"
           onChange={onClientFirmChange}
+          errorMessage={clientFirmError}
         />
       </InputWrapper>
       <InputWrapper>
@@ -52,6 +53,7 @@ const RequestFormView: React.FC<RequestFormViewProps> = ({
           value={transporter}
           label="ФИО перевозчика"
           onChange={onTransporterChange}
+          errorMessage={transporterError}
         />
       </InputWrapper>
       <InputWrapper>
@@ -80,6 +82,15 @@ const RequestFormView: React.FC<RequestFormViewProps> = ({
           rows={3}
         />
       </InputWrapper>
+
+      <ButtonRow>
+        <SubmitButton type="submit">
+          { formName === `create` ? `Добавить` : `Изменить`}
+        </SubmitButton>
+        <CancelButton type="reset">
+          Отмена
+        </CancelButton>
+      </ButtonRow>
     </Form>
   )
 }

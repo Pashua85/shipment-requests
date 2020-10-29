@@ -13,6 +13,7 @@ export interface IRequest {
 
 type Action =
   | {type: `SET_REQUESTS`, payload: IRequest[]}
+  | {type: `ADD_REQUEST`, payload: IRequest}
 
 type RequestsContextType = {
   state: {
@@ -44,6 +45,11 @@ const reducer = (state: IState, action: Action) => {
       return {
         requests: action.payload
       };
+    }
+    case `ADD_REQUEST`: {
+      return {
+        requests: [...state.requests, action.payload]
+      }
     }
     default: {
       return state;

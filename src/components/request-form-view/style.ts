@@ -34,7 +34,7 @@ export const ButtonRow = styled.div`
 `;
 
 export const SubmitButton = styled.button`
-  background-color: gainsboro;
+  background-color: lightsteelblue;
   border: 1px solid lightgray;
   border-radius: 5px;
   cursor: pointer;
@@ -53,7 +53,7 @@ export const SubmitButton = styled.button`
 
 export const CancelButton = styled.button`
   background-color: white;
-  border: 1px solid lightgray;
+  border: 1px solid lightsteelblue;
   border-radius: 5px;
   color: darkgray;
   cursor: pointer;
