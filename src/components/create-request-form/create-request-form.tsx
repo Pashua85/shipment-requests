@@ -35,6 +35,10 @@ const CreateRequestForm: React.FC = () => {
     setTransporterError(``);
   }, [transporter])
 
+  useEffect(() => {
+    setApplyTime(new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)).toISOString().slice(0, 16));
+  }, [isOpen])
+
   const postRequest = () => {
     fetch(`http://localhost:3006/lastRequest`)
       .then(res => res.json())
@@ -70,6 +74,14 @@ const CreateRequestForm: React.FC = () => {
               'Content-Type': 'application/json'
             }, 
             body: JSON.stringify({number: result.requestNumber})
+          })
+          .then(() => {
+            setClientFirm(``);
+            setTransporter(``);
+            setTransporterPhone(``);
+            setComments(``);
+            setCodeATI(``);
+            setIsOpen(false);
           })
           .catch(() => {
             throw new Error();

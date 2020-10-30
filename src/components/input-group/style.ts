@@ -7,6 +7,7 @@ export const Container = styled.div`
 
 export const Input = styled.input`
   border: 1px solid steelblue;
+  background-color: transparent;
   border-radius: 4px;
   font-size: 18px;
   height: 60px;

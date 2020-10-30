@@ -1,7 +1,9 @@
-import React, {useContext, useEffect, useState, ChangeEvent} from 'react';
+import React, {useContext, useEffect, useState, ChangeEvent, SyntheticEvent} from 'react';
 import {RequestsContext, IRequest} from '../../context/requestsContext';
-import {Container, Table, TableHeader, TableHead, TableBody, TableCell, TableRow, Link} from './style';
+import {Container, Table, TableHeader, TableHead, TableBody, TableCell, TableRow, Link, FormWrapper, FormBackground} from './style';
 import Panel from '../panel/panel';
+import UpdateRequestForm from '../update-request-form/update-request-form';
+import { request } from 'http';
 
 export type SearchParam = `clientFirm` | `transporter` | `codeATI` | `comments`;
 
@@ -10,6 +12,9 @@ const Requests: React.FC = () => {
   const [searchWord, setSearchWord] = useState(``);
   const [searchParam, setSearchParam] = useState<SearchParam>(`clientFirm`);
   const [filteredRequests, setFilteredRequests] = useState<IRequest[]>([]);
+  const [activeId, setActiveId] = useState(``);
+  const [activeRequest, setActiveRequest] = useState<IRequest | null>(null);
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
   useEffect(() => {
     fetch(`http://localhost:3006/requests`, {cache: "reload"})
@@ -22,8 +27,19 @@ const Requests: React.FC = () => {
         })
   }, [dispatch])
 
+  useEffect(() => {
+    const handleDocumentClick = (e: MouseEvent) => {
+      if(!(e.target as HTMLElement).closest(`main`)) {
+        setActiveRequest(null);
+        setActiveId(``);
+      }
+    };
+    document.body.addEventListener(`click`, handleDocumentClick)
 
-
+    return () => {
+      document.body.removeEventListener(`click`, handleDocumentClick);
+    }
+  }, [])
 
   useEffect(() => {
     if(searchWord === ``) {
@@ -36,12 +52,40 @@ const Requests: React.FC = () => {
     }
   }, [state, searchParam, searchWord]); 
 
+  const deleteRequest = () => {
+    if(activeRequest !== null) {
+      fetch(`http://localhost:3006/requests/${activeRequest.id}`, {
+        method: `DELETE`
+      })
+      .then(() => {
+        dispatch({
+          type: `DELETE_REQUEST`,
+          payload: `${activeRequest.id}`
+        })
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    }
+  }
+
   const handleSearchWordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchWord(e.target.value);
   };
 
   const handleSearchParamChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setSearchParam(e.target.value as SearchParam)
+  }
+
+  const handleDeleteClick = () => {
+    deleteRequest();
+    setActiveId(``);
+    setActiveRequest(null);
+  }
+
+  const handleItemClick = (request: IRequest) => {
+    setActiveId(request.id);
+    setActiveRequest(request);
   }
 
   return (
@@ -51,10 +95,13 @@ const Requests: React.FC = () => {
         onSearchWordChange={handleSearchWordChange}
         searchParam={searchParam}
         onSearchParamChange={handleSearchParamChange}
+        activeRequest={activeRequest}
+        onOpenClick={() => setIsFormOpen(true)}
+        onDeleteClick={handleDeleteClick}
       />
       <Table>
         <TableHead>
-          <TableRow>
+          <TableRow isActive={false}>
             <TableHeader>№</TableHeader>
             <TableHeader>Дата получения</TableHeader>
             <TableHeader>Фирма клиента</TableHeader>
@@ -67,7 +114,7 @@ const Requests: React.FC = () => {
         <TableBody>
           {
             filteredRequests.map(request => (
-              <TableRow key={request.id}>
+              <TableRow key={request.id} onClick={() => {handleItemClick(request)}} isActive={request.id === activeId}>
                 <TableCell>{String(request.requestNumber).padStart(4, `0`)}</TableCell>
                 <TableCell>{request.applyTime.replace(`T`, ` `)}</TableCell>
                 <TableCell>{request.clientFirm}</TableCell>
@@ -77,7 +124,6 @@ const Requests: React.FC = () => {
                   <Link href={`https://ati.su/firms/${request.codeATI}/info​`} target="_blank">
                     {Number(request.codeATI).toLocaleString()}
                   </Link>
-                  
                 </TableCell>
                 <TableCell>{request.comments}</TableCell>
               </TableRow>
@@ -85,6 +131,17 @@ const Requests: React.FC = () => {
           }
         </TableBody>
       </Table>
+      {
+        (activeRequest !== null) && isFormOpen ?
+        (
+          <FormBackground>
+            <FormWrapper>
+              <UpdateRequestForm request={activeRequest} onCloseClick={() => setIsFormOpen(false)} />
+            </FormWrapper>
+          </FormBackground>
+          
+        ) : null
+      }
     </Container>
   )
 };

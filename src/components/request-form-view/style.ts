@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
 export const Form = styled.form`
+  background-color: white;
   border-radius: 5px;
   border: 1px solid lightsteelblue;
   padding: 30px; 
   width: 500px;
-
 `;
 
 export const InputWrapper = styled.div`

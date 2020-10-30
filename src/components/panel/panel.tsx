@@ -1,15 +1,20 @@
 import React, {ChangeEvent} from 'react';
-import {Container, SearchInput, SearchGroup, SearchSelect, Label, SelectGroup} from './style';
+import {Container, SearchInput, SearchGroup, SearchSelect, ButtonGroup, AddButton, DeleteButton} from './style';
+import {IRequest} from '../../context/requestsContext';
 import {SearchParam} from '../requests/requests';
 
 interface PanelProps {
   searchWord: string,
   onSearchWordChange: (e: ChangeEvent<HTMLInputElement>) => void,
   searchParam: SearchParam,
-  onSearchParamChange: (e: ChangeEvent<HTMLSelectElement>) => void
+  onSearchParamChange: (e: ChangeEvent<HTMLSelectElement>) => void,
+  activeRequest: null | IRequest,
+  onOpenClick: () => void,
+  onDeleteClick: () => void
 }
 
-const Panel: React.FC<PanelProps> = ({searchWord, onSearchWordChange, searchParam, onSearchParamChange}) => {
+const Panel: React.FC<PanelProps> = ({searchWord, onSearchWordChange, searchParam, onSearchParamChange, activeRequest, onOpenClick, onDeleteClick}) => {
+
   return (
     <Container>
       <SearchGroup>
@@ -25,9 +30,16 @@ const Panel: React.FC<PanelProps> = ({searchWord, onSearchWordChange, searchPara
           <option value="codeATI">По коду в АТИ</option>
           <option value="comments">По комментарию</option>
         </SearchSelect>
-    
-        
       </SearchGroup>
+      {
+        activeRequest !== null ?
+        (
+          <ButtonGroup>
+            <AddButton type="button" onClick={onOpenClick}>Изменить</AddButton>
+            <DeleteButton type="button" onClick={onDeleteClick}>Удалить</DeleteButton>
+          </ButtonGroup>
+        ) : null
+      }
     </Container>
   )
 }

@@ -14,6 +14,8 @@ export interface IRequest {
 type Action =
   | {type: `SET_REQUESTS`, payload: IRequest[]}
   | {type: `ADD_REQUEST`, payload: IRequest}
+  | {type: `CHANGE_REQUEST`, payload: IRequest}
+  | {type: `DELETE_REQUEST`, payload: string}
 
 type RequestsContextType = {
   state: {
@@ -49,6 +51,22 @@ const reducer = (state: IState, action: Action) => {
     case `ADD_REQUEST`: {
       return {
         requests: [...state.requests, action.payload]
+      }
+    }
+    case `CHANGE_REQUEST`: {
+      return {
+        requests: [...state.requests].map(r => {
+          if (r.id === action.payload.id) {
+            return action.payload;
+          } else {
+            return r;
+          }
+        })
+      }
+    }
+    case `DELETE_REQUEST`: {
+      return {
+        requests: [...state.requests].filter(r => r.id !== action.payload)
       }
     }
     default: {
