@@ -103,19 +103,19 @@ export const TableCell = styled.td`
       content: 'Фирма клиента'
     }
 
-    &:nth-child(5):before {
+    &:nth-child(4):before {
       content: 'Перевозчик'
     }
 
-    &:nth-child(6):before {
+    &:nth-child(5):before {
       content: 'Тел. перевозчика'
     }
 
-    &:nth-child(4):before {
+    &:nth-child(6):before {
       content: 'Код в АТИ'
     }
 
-    &:nth-child(4):before {
+    &:nth-child(7):before {
       content: 'Комментарии'
     }
   }

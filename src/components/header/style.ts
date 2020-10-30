@@ -12,6 +12,19 @@ export const Container = styled.div`
   padding-bottom: 20px;
   padding-top: 30px;
   width: 80%;
+
+  @media ${DEVICE.MOBILE} {
+    padding-top: 25px;
+    padding-bottom: 15px;
+  }
+
+  @media ${DEVICE.MOBILE} {
+    width: 85%;
+  }
+
+  @media ${DEVICE.MOBILE_S} {
+    width: 90%;
+  }
 `;
 
 export const Title = styled.h1`
@@ -21,5 +34,10 @@ export const Title = styled.h1`
 
   @media ${DEVICE.TAB_LAND} {
     font-size: 36px;
+  }
+
+  @media ${DEVICE.MOBILE} {
+    font-size: 30px;
+    line-height: 36px;
   }
 `;

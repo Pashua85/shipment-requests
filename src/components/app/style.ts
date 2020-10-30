@@ -41,10 +41,23 @@ export const Main = styled.main`
   @media ${DEVICE.TAB_LAND} {
     padding-top: 30px;
   }
+
+  @media ${DEVICE.MOBILE} {
+    padding-top: 20px;
+    width: 85%;
+  }
+
+  @media ${DEVICE.MOBILE_S} {
+    width: 90%;
+  }
 `;
 
 export const CreateFormWrapper = styled.div`
   margin-bottom: 30px;
+
+  @media ${DEVICE.MOBILE} {
+    margin-bottom: 20px;
+  }
 `;
 
 

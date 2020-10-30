@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import {DEVICE} from '../../variables';
 
 export const Container = styled.div`
   
@@ -24,6 +25,10 @@ export const OpenButton = styled.button`
   }
   &:active {
     color: darkslategray;
+  }
+
+  @media ${DEVICE.MOBILE} {
+    width: 100%;
   }
 `;
 
