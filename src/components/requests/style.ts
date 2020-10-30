@@ -74,6 +74,7 @@ export const TableCell = styled.td`
     border: none;
     position: relative;
     padding-left: 150px;
+    min-height: 25px;
     
     &:not(:last-child) {
       border-bottom: 1px solid cornflowerblue;
