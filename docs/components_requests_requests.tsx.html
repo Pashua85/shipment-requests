@@ -72,7 +72,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Interfaces</h3><ul><li><a href="InputGroup.IInputGroupProps.html">IInputGroupProps</a></li><li><a href="IRequest.html">IRequest</a></li><li><a href="Panel.IPanelProps.html">IPanelProps</a></li><li><a href="RequestFormView.IRequestFormViewProps.html">IRequestFormViewProps</a></li></ul><h3>Components</h3><ul><li><a href="Header.html">Header</a></li><li><a href="InputGroup.html">InputGroup</a></li><li><a href="Panel.html">Panel</a></li><li><a href="RequestFormView.html">RequestFormView</a></li><li><a href="Requests.html">Requests</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Interfaces</h3><ul><li><a href="InputGroup.IInputGroupProps.html">IInputGroupProps</a></li><li><a href="IRequest.html">IRequest</a></li><li><a href="Panel.IPanelProps.html">IPanelProps</a></li><li><a href="RequestFormView.IRequestFormViewProps.html">IRequestFormViewProps</a></li><li><a href="UpdateRequestsForm.IUpdateRequestsFormProps.html">IUpdateRequestsFormProps</a></li></ul><h3>Components</h3><ul><li><a href="CreateRequestForm.html">CreateRequestForm</a></li><li><a href="Header.html">Header</a></li><li><a href="InputGroup.html">InputGroup</a></li><li><a href="Panel.html">Panel</a></li><li><a href="RequestFormView.html">RequestFormView</a></li><li><a href="Requests.html">Requests</a></li><li><a href="UpdateRequestForm.html">UpdateRequestForm</a></li></ul></div>
                 
             </nav>
         </div>
@@ -145,6 +145,9 @@ const Requests: React.FC = () => {
     }
   }, [state, searchParam, searchWord]); 
 
+  /**
+   * подаёт запрос на удаление заявки на сервер и диспатчит действие удаления в контекст с заявками
+   */
   const deleteRequest = () => {
     if(activeRequest !== null) {
       fetch(`http://localhost:3006/requests/${activeRequest.id}`, {
@@ -162,7 +165,7 @@ const Requests: React.FC = () => {
     }
   }
   /**
-   * функция для изменения значения searchWord в состоянии компонента в ответ на ввод слова в инпуте
+   * изменяет значение searchWord в состоянии компонента в ответ на ввод слова в инпуте
    * @param {ChangeEvent&lt;HTMLElement>} event событие изменения инпута со словом для поиска
    */
   const handleSearchWordChange = (event: ChangeEvent&lt;HTMLInputElement>) => {
@@ -170,7 +173,7 @@ const Requests: React.FC = () => {
   };
   
   /**
-   * функция для изменения значения searchParam в состоянии компонента в ответ на изменение селекта
+   * изменяет значение searchParam в состоянии компонента в ответ на изменение селекта
    * @param {ChangeEvent&lt;HTMLSelectElement>} event событие изменения селекта с параметрами поиска
    */
   const handleSearchParamChange = (event: ChangeEvent&lt;HTMLSelectElement>) => {
@@ -178,7 +181,7 @@ const Requests: React.FC = () => {
   }
 
   /**
-   * функция обработки клика по кнопке для удаления заявки
+   * обрабатывает клик по кнопке для удаления заявки
    */
   const handleDeleteClick = () => {
     deleteRequest();
@@ -187,8 +190,8 @@ const Requests: React.FC = () => {
   }
   
   /**
-   * функция для фиксации активной заявки в состояние компонента 
-   * @param {IRequest} request заявка
+   * фиксирует активную заявку в состояние компонента в ответ на клик по ней
+   * @param {IRequest} request объект заявки
    */
   const handleItemClick = (request: IRequest) => {
     setActiveId(request.id);

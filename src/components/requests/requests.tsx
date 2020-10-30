@@ -54,6 +54,9 @@ const Requests: React.FC = () => {
     }
   }, [state, searchParam, searchWord]); 
 
+  /**
+   * подаёт запрос на удаление заявки на сервер и диспатчит действие удаления в контекст с заявками
+   */
   const deleteRequest = () => {
     if(activeRequest !== null) {
       fetch(`http://localhost:3006/requests/${activeRequest.id}`, {
@@ -71,7 +74,7 @@ const Requests: React.FC = () => {
     }
   }
   /**
-   * функция для изменения значения searchWord в состоянии компонента в ответ на ввод слова в инпуте
+   * изменяет значение searchWord в состоянии компонента в ответ на ввод слова в инпуте
    * @param {ChangeEvent<HTMLElement>} event событие изменения инпута со словом для поиска
    */
   const handleSearchWordChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -79,7 +82,7 @@ const Requests: React.FC = () => {
   };
   
   /**
-   * функция для изменения значения searchParam в состоянии компонента в ответ на изменение селекта
+   * изменяет значение searchParam в состоянии компонента в ответ на изменение селекта
    * @param {ChangeEvent<HTMLSelectElement>} event событие изменения селекта с параметрами поиска
    */
   const handleSearchParamChange = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -87,7 +90,7 @@ const Requests: React.FC = () => {
   }
 
   /**
-   * функция обработки клика по кнопке для удаления заявки
+   * обрабатывает клик по кнопке для удаления заявки
    */
   const handleDeleteClick = () => {
     deleteRequest();
@@ -96,8 +99,8 @@ const Requests: React.FC = () => {
   }
   
   /**
-   * функция для фиксации активной заявки в состояние компонента в ответ на клик по ней
-   * @param {IRequest} request заявка
+   * фиксирует активную заявку в состояние компонента в ответ на клик по ней
+   * @param {IRequest} request объект заявки
    */
   const handleItemClick = (request: IRequest) => {
     setActiveId(request.id);
