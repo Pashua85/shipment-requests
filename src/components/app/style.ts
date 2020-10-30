@@ -1,5 +1,5 @@
 import styled, {createGlobalStyle} from 'styled-components';
-import {MAIN_FONT_COLOR} from '../../variables';
+import {MAIN_FONT_COLOR, MAX_WIDTH} from '../../variables';
 
 export const GlobalStyles = createGlobalStyle`
   *,
@@ -25,7 +25,15 @@ export const GlobalStyles = createGlobalStyle`
 `;
 
 export const Main = styled.main`
-  width: 80%;
+  padding-top: 40px;
+  max-width: ${MAX_WIDTH};
   margin: 0 auto;
+  width: 80%;
 `;
+
+export const CreateFormWrapper = styled.div`
+  margin-bottom: 30px;
+`;
+
+
 

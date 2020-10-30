@@ -17,6 +17,7 @@ interface RequestFormViewProps {
   onDateTimeChange: (e: ChangeEvent<HTMLInputElement>) => void,
   onCommentsChange: (e: ChangeEvent<HTMLTextAreaElement>) => void,
   onCodeATIChange: (e: ChangeEvent<HTMLInputElement>) => void,
+  onCancelClick: () => void,
   phoneError: string,
   codeATIError: string,
   clientFirmError: string,
@@ -25,7 +26,7 @@ interface RequestFormViewProps {
 
 const RequestFormView: React.FC<RequestFormViewProps> = ({
   onFormSubmit, clientFirm, onClientFirmChange, transporter, onTransporterChange, phoneError, transporterPhone, onPhoneChange, applyTime, onDateTimeChange,
-  formName, comments, onCommentsChange, codeATI, onCodeATIChange, codeATIError, clientFirmError, transporterError
+  formName, comments, onCommentsChange, codeATI, onCodeATIChange, codeATIError, clientFirmError, transporterError, onCancelClick
 }) => {
   return (
     <Form onSubmit={onFormSubmit} autoComplete="off">
@@ -87,7 +88,7 @@ const RequestFormView: React.FC<RequestFormViewProps> = ({
         <SubmitButton type="submit">
           { formName === `create` ? `Добавить` : `Изменить`}
         </SubmitButton>
-        <CancelButton type="reset">
+        <CancelButton type="reset" onClick={onCancelClick}>
           Отмена
         </CancelButton>
       </ButtonRow>

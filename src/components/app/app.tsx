@@ -1,20 +1,24 @@
 import React from 'react';
-import RequestsTable from '../requests-table/requests-table';
+import Requests from '../requests/requests';
 import CreateRequestForm from '../create-request-form/create-request-form';
+import Header from '../header/header';
 import {RequestsContext, RequestsContextProvider} from '../../context/requestsContext';
-import {GlobalStyles, Main} from './style';
+import {GlobalStyles, Main, CreateFormWrapper} from './style';
 
 
 const App: React.FC = () => {
 
   return (
-
     <RequestsContextProvider>
       <GlobalStyles />
+      <Header/>
       <Main>
-        <CreateRequestForm />
-        <RequestsTable />
+        <CreateFormWrapper>
+          <CreateRequestForm />
+        </CreateFormWrapper>
+        <Requests />
       </Main>
+      
     </RequestsContextProvider>
   );
 }

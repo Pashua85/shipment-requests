@@ -1,4 +1,5 @@
 import React, {useState, ChangeEvent, SyntheticEvent, useEffect, useContext} from 'react';
+import {Container, OpenButton, FormWrapper} from './style';
 import {RequestsContext} from '../../context/requestsContext';
 import {v4 as uuidv4} from 'uuid';
 import {IRequest} from '../../context/requestsContext';
@@ -6,6 +7,7 @@ import RequestFormView from '../request-form-view/request-form-view';
 
 const CreateRequestForm: React.FC = () => {
   const {dispatch} = useContext(RequestsContext);
+  const [isOpen, setIsOpen] = useState(false);
   const [clientFirm, setClientFirm] = useState(``);
   const [transporter, setTransporter] = useState(``);
   const [transporterPhone, setTransporterPhone] = useState(``);
@@ -161,26 +163,41 @@ const CreateRequestForm: React.FC = () => {
   };
 
   return (
-    <RequestFormView
-      formName="create"
-      clientFirm={clientFirm}
-      transporter={transporter}
-      onClientFirmChange={handleClientFirmChange}
-      onTransporterChange={handleTransporterChange}
-      onFormSubmit={handleFormSubmit}
-      transporterPhone={transporterPhone}
-      onPhoneChange={handlePhoneChange}
-      phoneError={phoneError}
-      applyTime={applyTime}
-      onDateTimeChange={handleDateTimeChange}
-      comments={comments}
-      onCommentsChange={handleCommentsChange}
-      codeATI={codeATI}
-      onCodeATIChange={handleCodeATIChange}
-      codeATIError={codeATIError}
-      transporterError={transporterError}
-      clientFirmError={clientFirmError}
-    />
+    <Container>
+      {
+        isOpen ?
+        (<FormWrapper>
+          <RequestFormView
+            formName="create"
+            clientFirm={clientFirm}
+            transporter={transporter}
+            onClientFirmChange={handleClientFirmChange}
+            onTransporterChange={handleTransporterChange}
+            onFormSubmit={handleFormSubmit}
+            transporterPhone={transporterPhone}
+            onPhoneChange={handlePhoneChange}
+            phoneError={phoneError}
+            applyTime={applyTime}
+            onDateTimeChange={handleDateTimeChange}
+            comments={comments}
+            onCommentsChange={handleCommentsChange}
+            codeATI={codeATI}
+            onCodeATIChange={handleCodeATIChange}
+            codeATIError={codeATIError}
+            transporterError={transporterError}
+            clientFirmError={clientFirmError}
+            onCancelClick={() => {setIsOpen(false)}}
+          />
+        </FormWrapper>
+        ) :
+        (
+          <OpenButton onClick={() => setIsOpen(true)}>
+            Добавить заявку
+          </OpenButton>
+        )
+      }
+    </Container>
+    
   )
 };
 
