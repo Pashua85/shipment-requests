@@ -5,7 +5,9 @@ import Header from '../header/header';
 import {RequestsContextProvider} from '../../context/requestsContext';
 import {GlobalStyles, Main} from './style';
 
-
+/**
+ * @component
+ */
 const App: React.FC = () => {
 
   return (
