@@ -1,0 +1,237 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> components/request-form-view/request-form-view.tsx</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">Shipment Requests Components</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Interfaces</h3><ul><li><a href="InputGroup.IInputGroupProps.html">IInputGroupProps</a></li><li><a href="IRequest.html">IRequest</a></li><li><a href="Panel.IPanelProps.html">IPanelProps</a></li><li><a href="RequestFormView.IRequestFormViewProps.html">IRequestFormViewProps</a></li><li><a href="UpdateRequestsForm.IUpdateRequestsFormProps.html">IUpdateRequestsFormProps</a></li></ul><h3>Components</h3><ul><li><a href="App.html">App</a></li><li><a href="CreateRequestForm.html">CreateRequestForm</a></li><li><a href="Header.html">Header</a></li><li><a href="InputGroup.html">InputGroup</a></li><li><a href="Panel.html">Panel</a></li><li><a href="RequestFormView.html">RequestFormView</a></li><li><a href="Requests.html">Requests</a></li><li><a href="UpdateRequestForm.html">UpdateRequestForm</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>components/request-form-view/request-form-view.tsx</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, {SyntheticEvent, ChangeEvent} from 'react';
+import {Form, InputWrapper, ButtonRow, SubmitButton, CancelButton, TextArea} from './style';
+import InputGroup from '../input-group/input-group';
+
+/**
+ * @memberof RequestFormView
+ * @interface {object} IRequestFormViewProps
+ * @property {string} applyTime Дата и время получения заявки от клиента
+ * @property {string} clientFirm Название фирмы клиента
+ * @property {string} transporter ФИО перевозчика
+ * @property {string} transporterPhone Контактный телефон перевозчика
+ * @property {string} comments Комментарии
+ * @property {string} codeATI ATI код сети перевозчика
+ * @property {"update" | "create"} formName название(назначение) формы: изменить существующую заявку или создать новую
+ * @property {string} phoneError сообщение об ошибке в поле для телефона перевозчика
+ * @property {string} codeATIError сообщение об ошибке в поле для кода из ATI
+ * @property {string} clientFirmError сообщение об ошибке в поле с названием фирмы клиента
+ * @property {string} transporterError сообщение об ошибке в поле с ФИО перевозчика
+ * @property
+ */
+interface IRequestFormViewProps {
+  clientFirm: string,
+  transporter: string,
+  transporterPhone: string,
+  applyTime: string,
+  formName: `update` | `create`,
+  comments: string,
+  codeATI: string,
+  onFormSubmit: (e: SyntheticEvent) => void,
+  onClientFirmChange: (e: ChangeEvent&lt;HTMLInputElement>) => void,
+  onTransporterChange: (e: ChangeEvent&lt;HTMLInputElement>) => void,
+  onPhoneChange: (e: ChangeEvent&lt;HTMLInputElement>) => void,
+  onDateTimeChange: (e: ChangeEvent&lt;HTMLInputElement>) => void,
+  onCommentsChange: (e: ChangeEvent&lt;HTMLTextAreaElement>) => void,
+  onCodeATIChange: (e: ChangeEvent&lt;HTMLInputElement>) => void,
+  onCancelClick: () => void,
+  phoneError: string,
+  codeATIError: string,
+  clientFirmError: string,
+  transporterError: string
+}
+
+/**
+ * @component
+ */
+const RequestFormView: React.FC&lt;IRequestFormViewProps> = ({
+  onFormSubmit, clientFirm, onClientFirmChange, transporter, onTransporterChange, phoneError, transporterPhone, onPhoneChange, applyTime, onDateTimeChange,
+  formName, comments, onCommentsChange, codeATI, onCodeATIChange, codeATIError, clientFirmError, transporterError, onCancelClick
+}) => {
+  return (
+    &lt;Form onSubmit={onFormSubmit} autoComplete="off">
+      &lt;InputWrapper>
+        &lt;InputGroup 
+          type="datetime-local"
+          value={applyTime}
+          label="Дата и время получения заявки"
+          onChange={onDateTimeChange}
+          disabled={formName === `update`}
+        />
+      &lt;/InputWrapper>
+      &lt;InputWrapper>
+        &lt;InputGroup
+          type="text"
+          value={clientFirm}
+          label="Название фирмы клиента"
+          onChange={onClientFirmChange}
+          errorMessage={clientFirmError}
+        />
+      &lt;/InputWrapper>
+      &lt;InputWrapper>
+        &lt;InputGroup
+          type="text"
+          value={transporter}
+          label="ФИО перевозчика"
+          onChange={onTransporterChange}
+          errorMessage={transporterError}
+        />
+      &lt;/InputWrapper>
+      &lt;InputWrapper>
+        &lt;InputGroup
+          type="text"
+          value={transporterPhone}
+          label="Телефон перевозчика"
+          onChange={onPhoneChange}
+          errorMessage={phoneError}
+        />
+      &lt;/InputWrapper>
+      &lt;InputWrapper>
+        &lt;InputGroup 
+          type="text"
+          value={codeATI}
+          label="Код в АТИ"
+          onChange={onCodeATIChange}
+          errorMessage={codeATIError}
+        />
+      &lt;/InputWrapper>
+      &lt;InputWrapper>
+        &lt;TextArea
+          value={comments}
+          onChange={onCommentsChange}
+          placeholder="Комментарии"
+          rows={3}
+        />
+      &lt;/InputWrapper>
+
+      &lt;ButtonRow>
+        &lt;SubmitButton type="submit">
+          { formName === `create` ? `Добавить` : `Изменить`}
+        &lt;/SubmitButton>
+        &lt;CancelButton type="reset" onClick={onCancelClick}>
+          Отмена
+        &lt;/CancelButton>
+      &lt;/ButtonRow>
+    &lt;/Form>
+  )
+}
+
+export default RequestFormView;</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>
