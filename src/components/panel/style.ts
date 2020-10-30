@@ -2,9 +2,14 @@ import styled from 'styled-components';
 import {DEVICE} from '../../variables';
 
 export const Container = styled.div`
+  background-color: white;
+  z-index: 200;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  position: sticky;
+  top: 0;
 `;
 
 export const SearchGroup = styled.div`
@@ -43,6 +48,7 @@ export const SearchInput = styled.input`
   }
 
   @media ${DEVICE.MOBILE} {
+    margin-right: 0;
     margin-bottom: 10px;
   }
 `;

@@ -8,6 +8,10 @@ export const Container = styled.div`
 export const FormWrapper = styled.div`
   margin: 0 auto;
   width: fit-content;
+
+  @media ${DEVICE.MOBILE} {
+    width: 100%;
+  }
 `;
 
 export const OpenButton = styled.button`
@@ -29,6 +33,7 @@ export const OpenButton = styled.button`
 
   @media ${DEVICE.MOBILE} {
     width: 100%;
+    padding: 0;
   }
 `;
 

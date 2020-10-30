@@ -137,6 +137,7 @@ export const FormBackground = styled.div`
 
 export const FormWrapper = styled.div`
   position: fixed;
-  left: calc(50% - 250px);
-  top: 100px;
+  width: 90%;
+  left: 5%;
+  top: 40px;
 `;

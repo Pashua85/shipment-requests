@@ -13,9 +13,9 @@ const App: React.FC = () => {
       <GlobalStyles />
       <Header/>
       <Main>
-        <CreateFormWrapper>
+        
           <CreateRequestForm />
-        </CreateFormWrapper>
+        
         <Requests />
       </Main>
       

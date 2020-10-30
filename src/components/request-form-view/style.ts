@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import {DEVICE} from '../../variables';
 
 export const Form = styled.form`
   background-color: white;
@@ -6,26 +7,26 @@ export const Form = styled.form`
   border: 1px solid lightsteelblue;
   padding: 30px; 
   width: 500px;
+
+  @media ${DEVICE.MOBILE} {
+    width: 100%;
+  }
+
+  @media ${DEVICE.MOBILE_M} {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 `;
 
 export const InputWrapper = styled.div`
   margin-bottom: 20px;
 `;
 
-export const Label = styled.label`
-  font-size: 14px;
-  text-transform: uppercase;
-`;
-
 export const TextArea = styled.textarea`
   border: 1px solid steelblue;
   border-radius: 4px;
-  font-size: 18px;
   padding: 20px;
   width: 100%;
-  &::placeholder {
-    font-size: 18px;
-  }
 `;
 
 export const ButtonRow = styled.div`
@@ -49,6 +50,14 @@ export const SubmitButton = styled.button`
   &:active {
     color: darkslategray;
   }
+
+  @media ${DEVICE.MOBILE} {
+    padding: 0 25px;
+  }
+
+  @media ${DEVICE.MOBILE_S} {
+    padding: 0 20px;
+  }
 `;
 
 export const CancelButton = styled.button`
@@ -67,5 +76,13 @@ export const CancelButton = styled.button`
   }
   &:active {
     color: darkgray;
+  }
+
+  @media ${DEVICE.MOBILE} {
+    padding: 0 25px;
+  }
+
+  @media ${DEVICE.MOBILE_S} {
+    padding: 0 20px;
   }
 `;

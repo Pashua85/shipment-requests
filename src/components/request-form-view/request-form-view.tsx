@@ -36,7 +36,7 @@ const RequestFormView: React.FC<RequestFormViewProps> = ({
           value={applyTime}
           label="Дата и время получения заявки"
           onChange={onDateTimeChange}
-          disabled={formName === `create`}
+          disabled={formName === `update`}
         />
       </InputWrapper>
       <InputWrapper>
