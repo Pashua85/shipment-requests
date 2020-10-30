@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import {DEVICE} from '../../variables';
 
 export const Container = styled.div`
   width: 100%;
@@ -17,6 +18,10 @@ export const Input = styled.input`
   width: 100%;
   &::placeholder {
     font-size: 18px;
+  }
+  
+  @media ${DEVICE.TAB_LAND} {
+    height: 50px;
   }
 `;
 

@@ -1,5 +1,5 @@
 import styled, {createGlobalStyle} from 'styled-components';
-import {MAIN_FONT_COLOR, MAX_WIDTH} from '../../variables';
+import {MAIN_FONT_COLOR, MAX_WIDTH, DEVICE} from '../../variables';
 
 export const GlobalStyles = createGlobalStyle`
   *,
@@ -21,6 +21,14 @@ export const GlobalStyles = createGlobalStyle`
     font-weight: normal;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    @media ${DEVICE.TAB_LAND} {
+      font-size: 16px;
+    }
+
+    @media ${DEVICE.TAB_PORT} {
+      font-size: 14px;
+    }
   }
 `;
 
@@ -29,6 +37,10 @@ export const Main = styled.main`
   max-width: ${MAX_WIDTH};
   margin: 0 auto;
   width: 80%;
+
+  @media ${DEVICE.TAB_LAND} {
+    padding-top: 30px;
+  }
 `;
 
 export const CreateFormWrapper = styled.div`

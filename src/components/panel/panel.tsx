@@ -25,7 +25,7 @@ const Panel: React.FC<PanelProps> = ({searchWord, onSearchWordChange, searchPara
           onChange={onSearchWordChange}
         />
         <SearchSelect onChange={onSearchParamChange}>
-          <option value="selectFirm">По фирме клиента</option>
+          <option value="clientFirm">По фирме клиента</option>
           <option value="transporter">По перевозчику</option>
           <option value="codeATI">По коду в АТИ</option>
           <option value="comments">По комментарию</option>

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {MAX_WIDTH} from '../../variables';
+import {MAX_WIDTH, DEVICE} from '../../variables';
 
 
 export const HeaderField = styled.header`
@@ -18,4 +18,8 @@ export const Title = styled.h1`
   color: snow;
   margin: 0;
   font-size: 40px;
+
+  @media ${DEVICE.TAB_LAND} {
+    font-size: 36px;
+  }
 `;

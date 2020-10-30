@@ -46,7 +46,7 @@ const Requests: React.FC = () => {
       setFilteredRequests([...state.requests]);
     } else {
       const filterByWord = (request: IRequest): boolean => {
-        return request[searchParam].toLowerCase().includes(searchWord.toLowerCase());
+        return String(request[searchParam]).toLowerCase().includes(searchWord.toLowerCase());
       };
       setFilteredRequests([...state.requests].filter(filterByWord));
     }
@@ -119,7 +119,11 @@ const Requests: React.FC = () => {
                 <TableCell>{request.applyTime.replace(`T`, ` `)}</TableCell>
                 <TableCell>{request.clientFirm}</TableCell>
                 <TableCell>{request.transporter}</TableCell>
-                <TableCell>{request.transporterPhone}</TableCell>
+                <TableCell>
+                  <Link href={`tel:${request.transporterPhone}`}>
+                    {request.transporterPhone}
+                  </Link>
+                </TableCell>
                 <TableCell>
                   <Link href={`https://ati.su/firms/${request.codeATI}/info​`} target="_blank">
                     {Number(request.codeATI).toLocaleString()}
