@@ -20,6 +20,10 @@ export const Form = styled.form`
 
 export const InputWrapper = styled.div`
   margin-bottom: 20px;
+
+  @media ${DEVICE.MOBILE_S} {
+    margin-bottom: 10px;
+  }
 `;
 
 export const TextArea = styled.textarea`

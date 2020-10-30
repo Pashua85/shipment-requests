@@ -23,6 +23,10 @@ export const TableRow = styled.tr<{isActive: boolean}>`
     flex-direction: column;
     margin-bottom: 10px;
 
+    &:first-child {
+      border-top: none;
+    }
+
     &:nth-child(odd) {
       background-color: ${({isActive}) => isActive ? `turquoise` : `rgba(100, 149, 237, .2)`};
     }
@@ -137,7 +141,25 @@ export const FormBackground = styled.div`
 
 export const FormWrapper = styled.div`
   position: fixed;
-  width: 90%;
-  left: 5%;
-  top: 40px;
+  width: fit-content;
+  left: calc(50% - 250px);
+  top: 80px;
+
+  @media ${DEVICE.TAB_LAND} {
+    top: 40px;
+  }
+
+  @media ${DEVICE.TAB_PORT} {
+    top: 30px;
+  }
+
+  @media ${DEVICE.MOBILE} {
+    width: 90%;
+    left: 5%;
+    top: 20px;
+  }
+
+  @media ${DEVICE.MOBILE_S} {
+    top: 10px;
+  }
 `;

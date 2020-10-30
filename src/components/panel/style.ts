@@ -3,6 +3,7 @@ import {DEVICE} from '../../variables';
 
 export const Container = styled.div`
   background-color: white;
+  border-bottom: 1px solid cornflowerblue;
   z-index: 200;
   display: flex;
   justify-content: space-between;

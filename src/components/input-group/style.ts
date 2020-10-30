@@ -38,7 +38,7 @@ export const Label = styled.label`
   font-size: 14px;
   text-transform: uppercase;
 
-  @media ${DEVICE.TAB_PORT} {
+  @media ${DEVICE.TAB_LAND} {
     font-size: 12px;
   }
 `;
