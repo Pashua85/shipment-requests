@@ -3,7 +3,19 @@ import {Container, SearchInput, SearchGroup, SearchSelect, ButtonGroup, AddButto
 import {IRequest} from '../../context/requestsContext';
 import {SearchParam} from '../requests/requests';
 
-interface PanelProps {
+/**
+ * IPanelProps
+ * @memberof Panel
+ * @interface {object} IPanelProps
+ * @property {string} searchWord значение инпута для поиска заявок по таблице
+ * @property {`clientFirm` | `transporter` | `codeATI` | `comments`} searchParam значение селекта с вариантами параметра для поиска
+ * @property {null | IRequest} activeRequest выбранная пользователем заявка, если таковая имеется
+ * @property {function} onSearchWordChange callback-функция на изменение значения инпута с искомым словом
+ * @property {function} onSearchParamChange callback-функция на изменение значения селекта селекта с вариантами параметра для поиска
+ * @property {function} onOpenClick callback-функция на клик по кнопке для открытия формы для изменения выбранной заявки
+ * @property {function} onDeleteClick callback-функция на клик по кнопке для удаления выбранной заявки
+ */
+interface IPanelProps {
   searchWord: string,
   onSearchWordChange: (e: ChangeEvent<HTMLInputElement>) => void,
   searchParam: SearchParam,
@@ -13,7 +25,11 @@ interface PanelProps {
   onDeleteClick: () => void
 }
 
-const Panel: React.FC<PanelProps> = ({searchWord, onSearchWordChange, searchParam, onSearchParamChange, activeRequest, onOpenClick, onDeleteClick}) => {
+/**
+ * Panel
+ * @component
+ */
+const Panel: React.FC<IPanelProps> = ({searchWord, onSearchWordChange, searchParam, onSearchParamChange, activeRequest, onOpenClick, onDeleteClick}) => {
 
   return (
     <Container>

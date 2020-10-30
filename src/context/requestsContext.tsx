@@ -1,5 +1,18 @@
 import React, {useReducer, createContext, ReactNode, Dispatch} from 'react';
 
+/**
+ * IRequest
+ * @interface {object} IRequest
+ * @alias IPanelProps
+ * @property {number} requestNumber Номер заявки
+ * @property {string} id Уникальный id для заявки
+ * @property {string} applyTime Дата и время получения заявки от клиента
+ * @property {string} clientFirm Название фирмы клиента
+ * @property {string} transporter ФИО перевозчика
+ * @property {string} transporterPhone Контактный телефон перевозчика
+ * @property {string} comments Комментарии
+ * @property {string} codeATI ATI код сети перевозчика
+ */
 export interface IRequest {
   requestNumber: number,
   id: string,

@@ -1,9 +1,8 @@
-import React, {useContext, useEffect, useState, ChangeEvent, SyntheticEvent} from 'react';
+import React, {useContext, useEffect, useState, ChangeEvent} from 'react';
 import {RequestsContext, IRequest} from '../../context/requestsContext';
 import {Container, Table, TableHeader, TableHead, TableBody, TableCell, TableRow, Link, FormWrapper, FormBackground} from './style';
 import Panel from '../panel/panel';
 import UpdateRequestForm from '../update-request-form/update-request-form';
-import { request } from 'http';
 
 export type SearchParam = `clientFirm` | `transporter` | `codeATI` | `comments`;
 

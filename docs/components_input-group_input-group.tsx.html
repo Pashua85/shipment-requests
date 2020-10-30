@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Home</title>
+  <title> components/input-group/input-group.tsx</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -77,33 +79,67 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p></p>
-                    <h1>Home</h1>
+                    <p>Source</p>
+                    <h1>components/input-group/input-group.tsx</h1>
                 </header>
                 
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react';
+import {Input, Container, ErrorMessage, Label} from './style';
+/**
+ * IInputGroupProps
+ * @memberof InputGroup
+ * @interface {object} IInputGroupProps
+ * @property {string} type  type of the input
+ * @property {value} value value for the input
+ * @property {string} label text for the title above the input field
+ * @property {string} placeholder placeholder for the input
+ * @property {string} errorMessage message that will be shown when user tries to enter invalid value into input
+ * @property {function} onChange callback function on input value change
+ * @property {boolean} disabled value for the disabled attribute for the input
+ */
+interface IInputGroupProps {
+  type: string,
+  value: string,
+  label: string,
+  placeholder?: string,
+  errorMessage?: string,
+  onChange: (e: React.ChangeEvent&lt;HTMLInputElement>) => void,
+  disabled?: boolean
+}
 
+/**
+ * InputGroup
+ * 
+ * @component 
+ */
+const InputGroup: React.FC&lt;IInputGroupProps> = ({value, label, placeholder, errorMessage = null, onChange, type, disabled = false}) => {
+  return (
+    &lt;Container>
+      &lt;Label>{label}&lt;/Label>
+      &lt;Input
+        type={type}
+        value={value}
+        placeholder={placeholder}
+        onChange={onChange}
+        disabled={disabled}
+      />
+      {
+        errorMessage !== null ?
+        &lt;ErrorMessage>{errorMessage}&lt;/ErrorMessage> : null
+      }
+    &lt;/Container>
+  )
+};
 
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+export default InputGroup;</code></pre>
+        </article>
+    </section>
 
 
 

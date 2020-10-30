@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Home</title>
+  <title> context/requestsContext.tsx</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -77,33 +79,120 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p></p>
-                    <h1>Home</h1>
+                    <p>Source</p>
+                    <h1>context/requestsContext.tsx</h1>
                 </header>
                 
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, {useReducer, createContext, ReactNode, Dispatch} from 'react';
+
+/**
+ * IRequest
+ * @interface {object} IRequest
+ * @alias IPanelProps
+ * @property {number} requestNumber Номер заявки
+ * @property {string} id Уникальный id для заявки
+ * @property {string} applyTime Дата и время получения заявки от клиента
+ * @property {string} clientFirm Название фирмы клиента
+ * @property {string} transporter ФИО перевозчика
+ * @property {string} transporterPhone Контактный телефон перевозчика
+ * @property {string} comments Комментарии
+ * @property {string} codeATI ATI код сети перевозчика
+ */
+export interface IRequest {
+  requestNumber: number,
+  id: string,
+  applyTime: string,
+  clientFirm: string,
+  transporter: string,
+  transporterPhone: string,
+  comments: string,
+  codeATI: string
+}
+
+type Action =
+  | {type: `SET_REQUESTS`, payload: IRequest[]}
+  | {type: `ADD_REQUEST`, payload: IRequest}
+  | {type: `CHANGE_REQUEST`, payload: IRequest}
+  | {type: `DELETE_REQUEST`, payload: string}
+
+type RequestsContextType = {
+  state: {
+    requests: IRequest[]
+  },
+  dispatch: Dispatch&lt;Action>
+}
+
+type Props = {
+  children: ReactNode
+}
+
+type IState = {
+  requests: IRequest[]
+}
+
+const initialState = {
+  state: {
+    requests: []
+  },
+  dispatch: () => null
+}
+
+export const RequestsContext = createContext&lt;RequestsContextType>(initialState);
+
+const reducer = (state: IState, action: Action) => {
+  switch(action.type) {
+    case `SET_REQUESTS`: {
+      return {
+        requests: action.payload
+      };
+    }
+    case `ADD_REQUEST`: {
+      return {
+        requests: [...state.requests, action.payload]
+      }
+    }
+    case `CHANGE_REQUEST`: {
+      return {
+        requests: [...state.requests].map(r => {
+          if (r.id === action.payload.id) {
+            return action.payload;
+          } else {
+            return r;
+          }
+        })
+      }
+    }
+    case `DELETE_REQUEST`: {
+      return {
+        requests: [...state.requests].filter(r => r.id !== action.payload)
+      }
+    }
+    default: {
+      return state;
+    }
+  }
+}
+
+export const RequestsContextProvider = (props: Props) => {
+  const [state, dispatch] = useReducer(reducer, {requests: []})
+
+  return (
+    &lt;RequestsContext.Provider value={{state, dispatch}}>
+      {props.children}
+    &lt;/RequestsContext.Provider>
+  )
+}
 
 
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+</code></pre>
+        </article>
+    </section>
 
 
 
