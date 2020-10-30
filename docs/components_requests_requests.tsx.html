@@ -1,0 +1,289 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> components/requests/requests.tsx</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">Shipment Requests Components</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Interfaces</h3><ul><li><a href="InputGroup.IInputGroupProps.html">IInputGroupProps</a></li><li><a href="IRequest.html">IRequest</a></li><li><a href="Panel.IPanelProps.html">IPanelProps</a></li><li><a href="RequestFormView.IRequestFormViewProps.html">IRequestFormViewProps</a></li></ul><h3>Components</h3><ul><li><a href="Header.html">Header</a></li><li><a href="InputGroup.html">InputGroup</a></li><li><a href="Panel.html">Panel</a></li><li><a href="RequestFormView.html">RequestFormView</a></li><li><a href="Requests.html">Requests</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>components/requests/requests.tsx</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, {useContext, useEffect, useState, ChangeEvent} from 'react';
+import {RequestsContext, IRequest} from '../../context/requestsContext';
+import {Container, Table, TableHeader, TableHead, TableBody, TableCell, TableRow, Link, FormWrapper, FormBackground} from './style';
+import Panel from '../panel/panel';
+import UpdateRequestForm from '../update-request-form/update-request-form';
+
+export type SearchParam = `clientFirm` | `transporter` | `codeATI` | `comments`;
+
+/**
+ * @component
+ */
+const Requests: React.FC = () => {
+  const {state, dispatch} = useContext(RequestsContext);
+  const [searchWord, setSearchWord] = useState(``);
+  const [searchParam, setSearchParam] = useState&lt;SearchParam>(`clientFirm`);
+  const [filteredRequests, setFilteredRequests] = useState&lt;IRequest[]>([]);
+  const [activeId, setActiveId] = useState(``);
+  const [activeRequest, setActiveRequest] = useState&lt;IRequest | null>(null);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+
+  useEffect(() => {
+    fetch(`http://localhost:3006/requests`, {cache: "reload"})
+        .then(res => res.json())
+        .then(result => {
+          dispatch({
+            type: `SET_REQUESTS`,
+            payload: result
+          })
+        })
+  }, [dispatch])
+
+  useEffect(() => {
+    const handleDocumentClick = (e: MouseEvent) => {
+      if(!(e.target as HTMLElement).closest(`main`)) {
+        setActiveRequest(null);
+        setActiveId(``);
+      }
+    };
+    document.body.addEventListener(`click`, handleDocumentClick)
+
+    return () => {
+      document.body.removeEventListener(`click`, handleDocumentClick);
+    }
+  }, [])
+
+  useEffect(() => {
+    if(searchWord === ``) {
+      setFilteredRequests([...state.requests]);
+    } else {
+      const filterByWord = (request: IRequest): boolean => {
+        return String(request[searchParam]).toLowerCase().includes(searchWord.toLowerCase());
+      };
+      setFilteredRequests([...state.requests].filter(filterByWord));
+    }
+  }, [state, searchParam, searchWord]); 
+
+  const deleteRequest = () => {
+    if(activeRequest !== null) {
+      fetch(`http://localhost:3006/requests/${activeRequest.id}`, {
+        method: `DELETE`
+      })
+      .then(() => {
+        dispatch({
+          type: `DELETE_REQUEST`,
+          payload: `${activeRequest.id}`
+        })
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    }
+  }
+  /**
+   * функция для изменения значения searchWord в состоянии компонента в ответ на ввод слова в инпуте
+   * @param {ChangeEvent&lt;HTMLElement>} event событие изменения инпута со словом для поиска
+   */
+  const handleSearchWordChange = (event: ChangeEvent&lt;HTMLInputElement>) => {
+    setSearchWord(event.target.value);
+  };
+  
+  /**
+   * функция для изменения значения searchParam в состоянии компонента в ответ на изменение селекта
+   * @param {ChangeEvent&lt;HTMLSelectElement>} event событие изменения селекта с параметрами поиска
+   */
+  const handleSearchParamChange = (event: ChangeEvent&lt;HTMLSelectElement>) => {
+    setSearchParam(event.target.value as SearchParam)
+  }
+
+  /**
+   * функция обработки клика по кнопке для удаления заявки
+   */
+  const handleDeleteClick = () => {
+    deleteRequest();
+    setActiveId(``);
+    setActiveRequest(null);
+  }
+  
+  /**
+   * функция для фиксации активной заявки в состояние компонента 
+   * @param {IRequest} request заявка
+   */
+  const handleItemClick = (request: IRequest) => {
+    setActiveId(request.id);
+    setActiveRequest(request);
+  }
+
+  return (
+    &lt;Container>
+      &lt;Panel
+        searchWord={searchWord}
+        onSearchWordChange={handleSearchWordChange}
+        searchParam={searchParam}
+        onSearchParamChange={handleSearchParamChange}
+        activeRequest={activeRequest}
+        onOpenClick={() => setIsFormOpen(true)}
+        onDeleteClick={handleDeleteClick}
+      />
+      &lt;Table>
+        &lt;TableHead>
+          &lt;TableRow isActive={false}>
+            &lt;TableHeader>№&lt;/TableHeader>
+            &lt;TableHeader>Дата получения&lt;/TableHeader>
+            &lt;TableHeader>Фирма клиента&lt;/TableHeader>
+            &lt;TableHeader>Перевозчик&lt;/TableHeader>
+            &lt;TableHeader>тел. перевозчика&lt;/TableHeader>
+            &lt;TableHeader>Код в АТИ&lt;/TableHeader>
+            &lt;TableHeader>Комментарии&lt;/TableHeader>
+          &lt;/TableRow>
+        &lt;/TableHead>
+        &lt;TableBody>
+          {
+            filteredRequests.map(request => (
+              &lt;TableRow key={request.id} onClick={() => {handleItemClick(request)}} isActive={request.id === activeId}>
+                &lt;TableCell>{String(request.requestNumber).padStart(4, `0`)}&lt;/TableCell>
+                &lt;TableCell>{request.applyTime.replace(`T`, ` `)}&lt;/TableCell>
+                &lt;TableCell>{request.clientFirm}&lt;/TableCell>
+                &lt;TableCell>{request.transporter}&lt;/TableCell>
+                &lt;TableCell>
+                  &lt;Link href={`tel:${request.transporterPhone}`}>
+                    {request.transporterPhone}
+                  &lt;/Link>
+                &lt;/TableCell>
+                &lt;TableCell>
+                  &lt;Link href={`https://ati.su/firms/${request.codeATI}/info​`} target="_blank">
+                    {Number(request.codeATI).toLocaleString()}
+                  &lt;/Link>
+                &lt;/TableCell>
+                &lt;TableCell>{request.comments}&lt;/TableCell>
+              &lt;/TableRow>
+            ))
+          }
+        &lt;/TableBody>
+      &lt;/Table>
+      {
+        (activeRequest !== null) &amp;&amp; isFormOpen ?
+        (
+          &lt;FormBackground>
+            &lt;FormWrapper>
+              &lt;UpdateRequestForm request={activeRequest} onCloseClick={() => setIsFormOpen(false)} />
+            &lt;/FormWrapper>
+          &lt;/FormBackground>
+          
+        ) : null
+      }
+    &lt;/Container>
+  )
+};
+
+export default Requests;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>

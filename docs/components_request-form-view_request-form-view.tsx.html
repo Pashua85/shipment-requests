@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> context/requestsContext.tsx</title>
+  <title> components/request-form-view/request-form-view.tsx</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -80,7 +80,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>context/requestsContext.tsx</h1>
+                    <h1>components/request-form-view/request-form-view.tsx</h1>
                 </header>
                 
 
@@ -89,109 +89,124 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React, {useReducer, createContext, ReactNode, Dispatch} from 'react';
+            <pre class="prettyprint source linenums"><code>import React, {SyntheticEvent, ChangeEvent} from 'react';
+import {Form, InputWrapper, ButtonRow, SubmitButton, CancelButton, TextArea} from './style';
+import InputGroup from '../input-group/input-group';
 
 /**
- * IRequest
- * @interface {object} IRequest
- * @alias IPanelProps
- * @alias Requests
- * @property {number} requestNumber Номер заявки
- * @property {string} id Уникальный id для заявки
+ * @memberof RequestFormView
+ * @interface {object} IRequestFormViewProps
  * @property {string} applyTime Дата и время получения заявки от клиента
  * @property {string} clientFirm Название фирмы клиента
  * @property {string} transporter ФИО перевозчика
  * @property {string} transporterPhone Контактный телефон перевозчика
  * @property {string} comments Комментарии
  * @property {string} codeATI ATI код сети перевозчика
+ * @property {"update" | "create"} formName название(назначение) формы: изменить существующую заявку или создать новую
+ * @property {string} phoneError сообщение об ошибке в поле для телефона перевозчика
+ * @property {string} codeATIError сообщение об ошибке в поле для кода из ATI
+ * @property {string} clientFirmError сообщение об ошибке в поле с названием фирмы клиента
+ * @property {string} transporterError сообщение об ошибке в поле с ФИО перевозчика
+ * @property
  */
-export interface IRequest {
-  requestNumber: number,
-  id: string,
-  applyTime: string,
+interface IRequestFormViewProps {
   clientFirm: string,
   transporter: string,
   transporterPhone: string,
+  applyTime: string,
+  formName: `update` | `create`,
   comments: string,
-  codeATI: string
+  codeATI: string,
+  onFormSubmit: (e: SyntheticEvent) => void,
+  onClientFirmChange: (e: ChangeEvent&lt;HTMLInputElement>) => void,
+  onTransporterChange: (e: ChangeEvent&lt;HTMLInputElement>) => void,
+  onPhoneChange: (e: ChangeEvent&lt;HTMLInputElement>) => void,
+  onDateTimeChange: (e: ChangeEvent&lt;HTMLInputElement>) => void,
+  onCommentsChange: (e: ChangeEvent&lt;HTMLTextAreaElement>) => void,
+  onCodeATIChange: (e: ChangeEvent&lt;HTMLInputElement>) => void,
+  onCancelClick: () => void,
+  phoneError: string,
+  codeATIError: string,
+  clientFirmError: string,
+  transporterError: string
 }
 
-type Action =
-  | {type: `SET_REQUESTS`, payload: IRequest[]}
-  | {type: `ADD_REQUEST`, payload: IRequest}
-  | {type: `CHANGE_REQUEST`, payload: IRequest}
-  | {type: `DELETE_REQUEST`, payload: string}
-
-type RequestsContextType = {
-  state: {
-    requests: IRequest[]
-  },
-  dispatch: Dispatch&lt;Action>
-}
-
-type Props = {
-  children: ReactNode
-}
-
-type IState = {
-  requests: IRequest[]
-}
-
-const initialState = {
-  state: {
-    requests: []
-  },
-  dispatch: () => null
-}
-
-export const RequestsContext = createContext&lt;RequestsContextType>(initialState);
-
-const reducer = (state: IState, action: Action) => {
-  switch(action.type) {
-    case `SET_REQUESTS`: {
-      return {
-        requests: action.payload
-      };
-    }
-    case `ADD_REQUEST`: {
-      return {
-        requests: [...state.requests, action.payload]
-      }
-    }
-    case `CHANGE_REQUEST`: {
-      return {
-        requests: [...state.requests].map(r => {
-          if (r.id === action.payload.id) {
-            return action.payload;
-          } else {
-            return r;
-          }
-        })
-      }
-    }
-    case `DELETE_REQUEST`: {
-      return {
-        requests: [...state.requests].filter(r => r.id !== action.payload)
-      }
-    }
-    default: {
-      return state;
-    }
-  }
-}
-
-export const RequestsContextProvider = (props: Props) => {
-  const [state, dispatch] = useReducer(reducer, {requests: []})
-
+/**
+ * @component
+ */
+const RequestFormView: React.FC&lt;IRequestFormViewProps> = ({
+  onFormSubmit, clientFirm, onClientFirmChange, transporter, onTransporterChange, phoneError, transporterPhone, onPhoneChange, applyTime, onDateTimeChange,
+  formName, comments, onCommentsChange, codeATI, onCodeATIChange, codeATIError, clientFirmError, transporterError, onCancelClick
+}) => {
   return (
-    &lt;RequestsContext.Provider value={{state, dispatch}}>
-      {props.children}
-    &lt;/RequestsContext.Provider>
+    &lt;Form onSubmit={onFormSubmit} autoComplete="off">
+      &lt;InputWrapper>
+        &lt;InputGroup 
+          type="datetime-local"
+          value={applyTime}
+          label="Дата и время получения заявки"
+          onChange={onDateTimeChange}
+          disabled={formName === `update`}
+        />
+      &lt;/InputWrapper>
+      &lt;InputWrapper>
+        &lt;InputGroup
+          type="text"
+          value={clientFirm}
+          label="Название фирмы клиента"
+          onChange={onClientFirmChange}
+          errorMessage={clientFirmError}
+        />
+      &lt;/InputWrapper>
+      &lt;InputWrapper>
+        &lt;InputGroup
+          type="text"
+          value={transporter}
+          label="ФИО перевозчика"
+          onChange={onTransporterChange}
+          errorMessage={transporterError}
+        />
+      &lt;/InputWrapper>
+      &lt;InputWrapper>
+        &lt;InputGroup
+          type="text"
+          value={transporterPhone}
+          label="Телефон перевозчика"
+          onChange={onPhoneChange}
+          errorMessage={phoneError}
+        />
+      &lt;/InputWrapper>
+      &lt;InputWrapper>
+        &lt;InputGroup 
+          type="text"
+          value={codeATI}
+          label="Код в АТИ"
+          onChange={onCodeATIChange}
+          errorMessage={codeATIError}
+        />
+      &lt;/InputWrapper>
+      &lt;InputWrapper>
+        &lt;TextArea
+          value={comments}
+          onChange={onCommentsChange}
+          placeholder="Комментарии"
+          rows={3}
+        />
+      &lt;/InputWrapper>
+
+      &lt;ButtonRow>
+        &lt;SubmitButton type="submit">
+          { formName === `create` ? `Добавить` : `Изменить`}
+        &lt;/SubmitButton>
+        &lt;CancelButton type="reset" onClick={onCancelClick}>
+          Отмена
+        &lt;/CancelButton>
+      &lt;/ButtonRow>
+    &lt;/Form>
   )
 }
 
-
-</code></pre>
+export default RequestFormView;</code></pre>
         </article>
     </section>
 

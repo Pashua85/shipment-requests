@@ -1,16 +1,15 @@
 import React from 'react';
 import {Input, Container, ErrorMessage, Label} from './style';
 /**
- * IInputGroupProps
  * @memberof InputGroup
  * @interface {object} IInputGroupProps
- * @property {string} type  type of the input
- * @property {value} value value for the input
- * @property {string} label text for the title above the input field
- * @property {string} placeholder placeholder for the input
- * @property {string} errorMessage message that will be shown when user tries to enter invalid value into input
- * @property {function} onChange callback function on input value change
- * @property {boolean} disabled value for the disabled attribute for the input
+ * @property {string} type  значение атрибута [type] для инпута
+ * @property {value} value значение для инпута
+ * @property {string} label текст для надписи над полем инпута
+ * @property {string} placeholder значение атрибута [placeholder] для инпута
+ * @property {string} errorMessage текст, который будет отображаться в поле инпута и сообщать пользователю о попытке ввести некоректное значение или отправить форму, не заполнив обязательных полей
+ * @property {function} onChange callback-функция на изменение значения инпута
+ * @property {boolean} disabled значение атрибута [disabled] для инпута
  */
 interface IInputGroupProps {
   type: string,
@@ -23,8 +22,6 @@ interface IInputGroupProps {
 }
 
 /**
- * InputGroup
- * 
  * @component 
  */
 const InputGroup: React.FC<IInputGroupProps> = ({value, label, placeholder, errorMessage = null, onChange, type, disabled = false}) => {

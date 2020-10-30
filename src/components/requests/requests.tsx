@@ -6,6 +6,9 @@ import UpdateRequestForm from '../update-request-form/update-request-form';
 
 export type SearchParam = `clientFirm` | `transporter` | `codeATI` | `comments`;
 
+/**
+ * @component
+ */
 const Requests: React.FC = () => {
   const {state, dispatch} = useContext(RequestsContext);
   const [searchWord, setSearchWord] = useState(``);
@@ -67,21 +70,35 @@ const Requests: React.FC = () => {
       })
     }
   }
-
-  const handleSearchWordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchWord(e.target.value);
+  /**
+   * функция для изменения значения searchWord в состоянии компонента в ответ на ввод слова в инпуте
+   * @param {ChangeEvent<HTMLElement>} event событие изменения инпута со словом для поиска
+   */
+  const handleSearchWordChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchWord(event.target.value);
   };
-
-  const handleSearchParamChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setSearchParam(e.target.value as SearchParam)
+  
+  /**
+   * функция для изменения значения searchParam в состоянии компонента в ответ на изменение селекта
+   * @param {ChangeEvent<HTMLSelectElement>} event событие изменения селекта с параметрами поиска
+   */
+  const handleSearchParamChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    setSearchParam(event.target.value as SearchParam)
   }
 
+  /**
+   * функция обработки клика по кнопке для удаления заявки
+   */
   const handleDeleteClick = () => {
     deleteRequest();
     setActiveId(``);
     setActiveRequest(null);
   }
-
+  
+  /**
+   * функция для фиксации активной заявки в состояние компонента в ответ на клик по ней
+   * @param {IRequest} request заявка
+   */
   const handleItemClick = (request: IRequest) => {
     setActiveId(request.id);
     setActiveRequest(request);

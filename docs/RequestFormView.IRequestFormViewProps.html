@@ -5,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> IPanelProps</title>
+  <title> IRequestFormViewProps</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -78,7 +78,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Interface</p>
-                    <h1>IPanelProps</h1>
+                    <h1>IRequestFormViewProps</h1>
                 </header>
                 
 
@@ -90,7 +90,7 @@
 <header>
     
         <h2>
-            <span class="ancestors"><a href="Panel.html">Panel</a>.</span>IPanelProps</h2>
+            <span class="ancestors"><a href="RequestFormView.html">RequestFormView</a>.</span>IRequestFormViewProps</h2>
         
     
 </header>
@@ -129,7 +129,7 @@
             
 <tr class="deep-level-0">
     
-        <td class="name"><code>searchWord</code></td>
+        <td class="name"><code>applyTime</code></td>
     
 
     <td class="type">
@@ -145,29 +145,138 @@
 
     
 
-    <td class="description last"><p>значение инпута для поиска заявок по таблице</p></td>
+    <td class="description last"><p>Дата и время получения заявки от клиента</p></td>
 </tr>
 
         
             
 <tr class="deep-level-0">
     
-        <td class="name"><code>searchParam</code></td>
+        <td class="name"><code>clientFirm</code></td>
     
 
     <td class="type">
     
         
-<span class="param-type">"clientFirm"</span>
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Название фирмы клиента</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>transporter</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>ФИО перевозчика</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>transporterPhone</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Контактный телефон перевозчика</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>comments</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Комментарии</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>codeATI</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>ATI код сети перевозчика</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>formName</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">"update"</span>
 |
 
-<span class="param-type">"transporter"</span>
-|
-
-<span class="param-type">"codeATI"</span>
-|
-
-<span class="param-type">"comments"</span>
+<span class="param-type">"create"</span>
 
 
     
@@ -177,23 +286,20 @@
 
     
 
-    <td class="description last"><p>значение селекта с вариантами параметра для поиска</p></td>
+    <td class="description last"><p>название(назначение) формы: изменить существующую заявку или создать новую</p></td>
 </tr>
 
         
             
 <tr class="deep-level-0">
     
-        <td class="name"><code>activeRequest</code></td>
+        <td class="name"><code>phoneError</code></td>
     
 
     <td class="type">
     
         
-<span class="param-type">null</span>
-|
-
-<span class="param-type"><a href="IRequest.html">IRequest</a></span>
+<span class="param-type">string</span>
 
 
     
@@ -203,20 +309,20 @@
 
     
 
-    <td class="description last"><p>выбранная пользователем заявка, если таковая имеется</p></td>
+    <td class="description last"><p>сообщение об ошибке в поле для телефона перевозчика</p></td>
 </tr>
 
         
             
 <tr class="deep-level-0">
     
-        <td class="name"><code>onSearchWordChange</code></td>
+        <td class="name"><code>codeATIError</code></td>
     
 
     <td class="type">
     
         
-<span class="param-type">function</span>
+<span class="param-type">string</span>
 
 
     
@@ -226,20 +332,20 @@
 
     
 
-    <td class="description last"><p>callback-функция на изменение значения инпута с искомым словом</p></td>
+    <td class="description last"><p>сообщение об ошибке в поле для кода из ATI</p></td>
 </tr>
 
         
             
 <tr class="deep-level-0">
     
-        <td class="name"><code>onSearchParamChange</code></td>
+        <td class="name"><code>clientFirmError</code></td>
     
 
     <td class="type">
     
         
-<span class="param-type">function</span>
+<span class="param-type">string</span>
 
 
     
@@ -249,20 +355,20 @@
 
     
 
-    <td class="description last"><p>callback-функция на изменение значения селекта селекта с вариантами параметра для поиска</p></td>
+    <td class="description last"><p>сообщение об ошибке в поле с названием фирмы клиента</p></td>
 </tr>
 
         
             
 <tr class="deep-level-0">
     
-        <td class="name"><code>onOpenClick</code></td>
+        <td class="name"><code>transporterError</code></td>
     
 
     <td class="type">
     
         
-<span class="param-type">function</span>
+<span class="param-type">string</span>
 
 
     
@@ -272,30 +378,7 @@
 
     
 
-    <td class="description last"><p>callback-функция на клик по кнопке для открытия формы для изменения выбранной заявки</p></td>
-</tr>
-
-        
-            
-<tr class="deep-level-0">
-    
-        <td class="name"><code>onDeleteClick</code></td>
-    
-
-    <td class="type">
-    
-        
-<span class="param-type">function</span>
-
-
-    
-    </td>
-
-    
-
-    
-
-    <td class="description last"><p>callback-функция на клик по кнопке для удаления выбранной заявки</p></td>
+    <td class="description last"><p>сообщение об ошибке в поле с ФИО перевозчика</p></td>
 </tr>
 
         
@@ -338,9 +421,9 @@
 
     
         <p class="tag-source">
-            <a href="components_panel_panel.tsx.html" class="button">View Source</a>
+            <a href="components_request-form-view_request-form-view.tsx.html" class="button">View Source</a>
             <span>
-                <a href="components_panel_panel.tsx.html">components/panel/panel.tsx</a>, <a href="components_panel_panel.tsx.html#line27">line 27</a>
+                <a href="components_request-form-view_request-form-view.tsx.html">components/request-form-view/request-form-view.tsx</a>, <a href="components_request-form-view_request-form-view.tsx.html#line31">line 31</a>
             </span>
         </p>
     

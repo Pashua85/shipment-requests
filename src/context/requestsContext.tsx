@@ -4,6 +4,7 @@ import React, {useReducer, createContext, ReactNode, Dispatch} from 'react';
  * IRequest
  * @interface {object} IRequest
  * @alias IPanelProps
+ * @alias Requests
  * @property {number} requestNumber Номер заявки
  * @property {string} id Уникальный id для заявки
  * @property {string} applyTime Дата и время получения заявки от клиента

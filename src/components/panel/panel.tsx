@@ -4,11 +4,10 @@ import {IRequest} from '../../context/requestsContext';
 import {SearchParam} from '../requests/requests';
 
 /**
- * IPanelProps
  * @memberof Panel
  * @interface {object} IPanelProps
  * @property {string} searchWord значение инпута для поиска заявок по таблице
- * @property {`clientFirm` | `transporter` | `codeATI` | `comments`} searchParam значение селекта с вариантами параметра для поиска
+ * @property {"clientFirm" | "transporter" | "codeATI" | "comments"} searchParam значение селекта с вариантами параметра для поиска
  * @property {null | IRequest} activeRequest выбранная пользователем заявка, если таковая имеется
  * @property {function} onSearchWordChange callback-функция на изменение значения инпута с искомым словом
  * @property {function} onSearchParamChange callback-функция на изменение значения селекта селекта с вариантами параметра для поиска
@@ -26,7 +25,6 @@ interface IPanelProps {
 }
 
 /**
- * Panel
  * @component
  */
 const Panel: React.FC<IPanelProps> = ({searchWord, onSearchWordChange, searchParam, onSearchParamChange, activeRequest, onOpenClick, onDeleteClick}) => {

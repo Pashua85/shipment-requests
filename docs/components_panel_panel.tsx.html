@@ -72,7 +72,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Interfaces</h3><ul><li><a href="InputGroup.IInputGroupProps.html">IInputGroupProps</a></li><li><a href="IRequest.html">IRequest</a></li><li><a href="Panel.IPanelProps.html">IPanelProps</a></li></ul><h3>Components</h3><ul><li><a href="Header.html">Header</a></li><li><a href="InputGroup.html">InputGroup</a></li><li><a href="Panel.html">Panel</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Interfaces</h3><ul><li><a href="InputGroup.IInputGroupProps.html">IInputGroupProps</a></li><li><a href="IRequest.html">IRequest</a></li><li><a href="Panel.IPanelProps.html">IPanelProps</a></li><li><a href="RequestFormView.IRequestFormViewProps.html">IRequestFormViewProps</a></li></ul><h3>Components</h3><ul><li><a href="Header.html">Header</a></li><li><a href="InputGroup.html">InputGroup</a></li><li><a href="Panel.html">Panel</a></li><li><a href="RequestFormView.html">RequestFormView</a></li><li><a href="Requests.html">Requests</a></li></ul></div>
                 
             </nav>
         </div>
@@ -95,11 +95,10 @@ import {IRequest} from '../../context/requestsContext';
 import {SearchParam} from '../requests/requests';
 
 /**
- * IPanelProps
  * @memberof Panel
  * @interface {object} IPanelProps
  * @property {string} searchWord значение инпута для поиска заявок по таблице
- * @property {`clientFirm` | `transporter` | `codeATI` | `comments`} searchParam значение селекта с вариантами параметра для поиска
+ * @property {"clientFirm" | "transporter" | "codeATI" | "comments"} searchParam значение селекта с вариантами параметра для поиска
  * @property {null | IRequest} activeRequest выбранная пользователем заявка, если таковая имеется
  * @property {function} onSearchWordChange callback-функция на изменение значения инпута с искомым словом
  * @property {function} onSearchParamChange callback-функция на изменение значения селекта селекта с вариантами параметра для поиска
@@ -117,7 +116,6 @@ interface IPanelProps {
 }
 
 /**
- * Panel
  * @component
  */
 const Panel: React.FC&lt;IPanelProps> = ({searchWord, onSearchWordChange, searchParam, onSearchParamChange, activeRequest, onOpenClick, onDeleteClick}) => {

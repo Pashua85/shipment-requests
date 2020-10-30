@@ -30,3 +30,9 @@ reactComponents['InputGroup'] = Component1;
 
 import Component2 from '../src/components/panel/panel.tsx';
 reactComponents['Panel'] = Component2;
+
+import Component3 from '../src/components/request-form-view/request-form-view.tsx';
+reactComponents['RequestFormView'] = Component3;
+
+import Component4 from '../src/components/requests/requests.tsx';
+reactComponents['Requests'] = Component4;
