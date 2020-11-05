@@ -13,7 +13,6 @@ const Requests: React.FC = () => {
   const {state, dispatch} = useContext(RequestsContext);
   const [searchWord, setSearchWord] = useState(``);
   const [searchParam, setSearchParam] = useState<SearchParam>(`clientFirm`);
-  const [filteredRequests, setFilteredRequests] = useState<IRequest[]>([]);
   const [activeId, setActiveId] = useState(``);
   const [activeRequest, setActiveRequest] = useState<IRequest | null>(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -42,17 +41,6 @@ const Requests: React.FC = () => {
       document.body.removeEventListener(`click`, handleDocumentClick);
     }
   }, [])
-
-  useEffect(() => {
-    if(searchWord === ``) {
-      setFilteredRequests([...state.requests]);
-    } else {
-      const filterByWord = (request: IRequest): boolean => {
-        return String(request[searchParam]).toLowerCase().includes(searchWord.toLowerCase());
-      };
-      setFilteredRequests([...state.requests].filter(filterByWord));
-    }
-  }, [state, searchParam, searchWord]); 
 
   /**
    * подаёт запрос на удаление заявки на сервер и диспатчит действие удаления в контекст с заявками
@@ -132,25 +120,28 @@ const Requests: React.FC = () => {
         </TableHead>
         <TableBody>
           {
-            filteredRequests.map(request => (
-              <TableRow key={request.id} onClick={() => {handleItemClick(request)}} isActive={request.id === activeId}>
-                <TableCell>{String(request.requestNumber).padStart(4, `0`)}</TableCell>
-                <TableCell>{request.applyTime.replace(`T`, ` `)}</TableCell>
-                <TableCell>{request.clientFirm}</TableCell>
-                <TableCell>{request.transporter}</TableCell>
-                <TableCell>
-                  <Link href={`tel:${request.transporterPhone}`}>
-                    {request.transporterPhone}
-                  </Link>
-                </TableCell>
-                <TableCell>
-                  <Link href={`https://ati.su/firms/${request.codeATI}/info​`} target="_blank">
-                    {Number(request.codeATI).toLocaleString()}
-                  </Link>
-                </TableCell>
-                <TableCell>{request.comments}</TableCell>
-              </TableRow>
-            ))
+            state.requests.map(request => {
+              return String(request[searchParam]).toLowerCase().includes(searchWord.toLowerCase()) ?
+              (
+                <TableRow key={request.id} onClick={() => {handleItemClick(request)}} isActive={request.id === activeId}>
+                  <TableCell>{String(request.requestNumber).padStart(4, `0`)}</TableCell>
+                  <TableCell>{request.applyTime.replace(`T`, ` `)}</TableCell>
+                  <TableCell>{request.clientFirm}</TableCell>
+                  <TableCell>{request.transporter}</TableCell>
+                  <TableCell>
+                    <Link href={`tel:${request.transporterPhone}`}>
+                      {request.transporterPhone}
+                    </Link>
+                  </TableCell>
+                  <TableCell>
+                    <Link href={`https://ati.su/firms/${request.codeATI}/info​`} target="_blank">
+                      {Number(request.codeATI).toLocaleString()}
+                    </Link>
+                  </TableCell>
+                  <TableCell>{request.comments}</TableCell>
+                </TableRow>
+              ) : null;
+            })
           }
         </TableBody>
       </Table>
